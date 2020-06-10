@@ -1,0 +1,22 @@
+{
+  "name": "robots",
+  "version": "1.0.0",
+  "description": "Controlling spider robot prototypes",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ian-woolf/robots.git"
+  },
+  "author": "Ian Woolf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ian-woolf/robots/issues"
+  },
+  "homepage": "https://github.com/ian-woolf/robots#readme",
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}
