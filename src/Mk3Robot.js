@@ -20,13 +20,8 @@ module.exports = class Mk3Robot {
     }
 
     set position(pos) {
-        if (pos.x > -1 && pos.y > -1) {
-            this._position.x = pos.x;
-            this._position.y = pos.y;
-        }
-        else {
-            throw new Error(`invalid position supplied`);
-        }
+        this._position.x = pos.x;
+        this._position.y = pos.y;
     }
 
     get position() {
@@ -88,6 +83,7 @@ module.exports = class Mk3Robot {
         let oldCmdSeq = Mk3Robot.simplifyCmdSeq(cmdSeq);
 
         // TODO: still need to look for more than 5Fs in a row
+        // and more than 30F in total
         // simplifyCmdSeq detects obvious 6F but not 3F3F
 
         [...oldCmdSeq].forEach(el => {
@@ -111,14 +107,10 @@ module.exports = class Mk3Robot {
                             this.position = {x: this.position.x + 1, y: this.position.y};
                             break;
                         case 180:
-                            if (this.position.y > 0) {
-                                this.position = {x: this.position.x, y: this.position.y - 1};
-                            }
+                            this.position = {x: this.position.x, y: this.position.y - 1};
                             break;
                         case 270:
-                            if (this.position.x > 0) {
-                                this.position = {x: this.position.x - 1, y: this.position.y};
-                            }
+                            this.position = {x: this.position.x - 1, y: this.position.y};
                             break;
                         default:
                             throw new Error(`invalid orientation enountered`);

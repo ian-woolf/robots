@@ -111,18 +111,18 @@ describe(`Mk3Robot`, () => {
             expect(robot.orientation).toBe(270);
         })
 
-        test(`forwards, off edge`, () => {
-            robot.control({ x: 1, y: 0 }, 'RRRFF');
-            expect(robot.position.x).toBe(0);
-            expect(robot.position.y).toBe(0);
-            expect(robot.orientation).toBe(270);
-        })
-
         test(`backwards`, () => {
             robot.control({ x: 0, y: 1 }, 'B');
             expect(robot.position.x).toBe(0);
             expect(robot.position.y).toBe(0);
             expect(robot.orientation).toBe(180);
+        })
+
+        test(`forwards, off edge`, () => {
+            robot.control({ x: 1, y: 0 }, 'RRRFF');
+            expect(robot.position.x).toBe(-1);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(270);
         })
     })
 });
