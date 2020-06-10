@@ -73,5 +73,47 @@ describe(`Mk2Robot`, () => {
             expect(robot.position.y).toBe(0);
             expect(robot.orientation).toBe(270);
         })
+
+        test(`forwards, orientation 0`, () => {
+            robot.control({ x: 0, y: 0 }, 'F');
+            expect(robot.position.x).toBe(0);
+            expect(robot.position.y).toBe(1);
+            expect(robot.orientation).toBe(0);
+        })
+
+        test(`forwards, orientation 90`, () => {
+            robot.control({ x: 0, y: 0 }, 'RF');
+            expect(robot.position.x).toBe(1);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(90);
+        })
+
+        test(`forwards, orientation 180`, () => {
+            robot.control({ x: 0, y: 1 }, 'RRF');
+            expect(robot.position.x).toBe(0);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(180);
+        })
+
+        test(`forwards, orientation 270`, () => {
+            robot.control({ x: 1, y: 0 }, 'RRRF');
+            expect(robot.position.x).toBe(0);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(270);
+        })
+
+        test(`forwards, off edge`, () => {
+            robot.control({ x: 1, y: 0 }, 'RRRFF');
+            expect(robot.position.x).toBe(0);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(270);
+        })
+
+        test(`backwards`, () => {
+            robot.control({ x: 0, y: 1 }, 'B');
+            expect(robot.position.x).toBe(0);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(180);
+        })
     })
 });

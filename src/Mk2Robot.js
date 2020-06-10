@@ -61,17 +61,37 @@ module.exports = class Mk2Robot {
         // - building is sufficiently large the robot won't reach the other two edges 
         [...cmdSeq].forEach(el => {
             switch(el) {
-                case 'F':
-                    // TODO
-                    break;
-                case 'B':
-                    // TODO
-                    break;
                 case 'L':
                     this.orientation = angles.normalize(this.orientation - 90);
                     break;
                 case 'R':
                     this.orientation = angles.normalize(this.orientation + 90);
+                    break;
+                case 'B':
+                    this.orientation = angles.normalize(this.orientation - 180);
+                    // deliberate fall through
+                case 'F':
+                    // need to move in the direction we're currently oriented
+                    switch(this.orientation) {
+                        case 0:
+                            this.position = {x: this.position.x, y: this.position.y + 1};
+                            break;
+                        case 90:
+                            this.position = {x: this.position.x + 1, y: this.position.y};
+                            break;
+                        case 180:
+                            if (this.position.y > 0) {
+                                this.position = {x: this.position.x, y: this.position.y - 1};
+                            }
+                            break;
+                        case 270:
+                            if (this.position.x > 0) {
+                                this.position = {x: this.position.x - 1, y: this.position.y};
+                            }
+                            break;
+                        default:
+                            throw new Error(`invalid orientation enountered`);
+                    }
                     break;
                 default:
                     throw new Error(`invalid command encountered`);
