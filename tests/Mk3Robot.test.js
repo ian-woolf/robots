@@ -30,7 +30,6 @@ describe(`Mk3Robot`, () => {
         expect(Mk3Robot.simplifyCmdSeq('2F')).toBe('FF');
         expect(Mk3Robot.simplifyCmdSeq('2F3F')).toBe('FFFFF');
         expect(Mk3Robot.simplifyCmdSeq('LR2FRL3F')).toBe('LRFFRLFFF');
-        expect(() => { Mk3Robot.simplifyCmdSeq('6F') }).toThrow();
     })
 
     describe(`control`, () => {
@@ -123,6 +122,16 @@ describe(`Mk3Robot`, () => {
             expect(robot.position.x).toBe(-1);
             expect(robot.position.y).toBe(0);
             expect(robot.orientation).toBe(270);
+        })
+
+        test(`overheat`, () => {
+            // 6 consecutive Fs
+            expect(() => { robot.control({ x: 0, y: 0 }, 'FFFFFF') }).toThrow();
+        })
+
+        test(`out of fuel`, () => {
+            // 31 Fs, but none consecutively to avoid overheating
+            expect(() => { robot.control({ x: 0, y: 0 }, 'FRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRF') }).toThrow();
         })
     })
 });

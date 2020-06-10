@@ -53,14 +53,9 @@ module.exports = class Mk3Robot {
             if (el >= '0' && el <= '9') {
                 // found a number
                 let num = parseInt(el);
-                if (num > 5) {
-                    throw new Error('provided command sequence will overheat robot');
-                }
-                else {
-                    for (let i = 0; i < num-1; i++) {
-                        simpleCmdSeq += 'F';
-                    }       
-                }
+                for (let i = 0; i < num-1; i++) {
+                    simpleCmdSeq += 'F';
+                }       
             }
             else {
                 simpleCmdSeq += el;
@@ -82,9 +77,13 @@ module.exports = class Mk3Robot {
 
         let oldCmdSeq = Mk3Robot.simplifyCmdSeq(cmdSeq);
 
-        // TODO: still need to look for more than 5Fs in a row
-        // and more than 30F in total
-        // simplifyCmdSeq detects obvious 6F but not 3F3F
+        if ((oldCmdSeq.match(/F/g) || []).length > 30) {
+            throw new Error('provided command sequence will cause robot to run out of fuel');
+        }
+
+        if (oldCmdSeq.match(/FFFFFF/g)) {
+            throw new Error('provided command sequence will cause robot to overheat');
+        }
 
         [...oldCmdSeq].forEach(el => {
             switch(el) {
