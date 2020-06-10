@@ -18,5 +18,8 @@
   "homepage": "https://github.com/ian-woolf/robots#readme",
   "devDependencies": {
     "jest": "^26.0.1"
+  },
+  "dependencies": {
+    "angles": "^0.2.4"
   }
 }

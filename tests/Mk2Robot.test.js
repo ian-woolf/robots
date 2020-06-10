@@ -24,9 +24,54 @@ describe(`Mk2Robot`, () => {
         expect(robot.orientation).toBe(180);
     })
 
-    test(`control`, () => {
+    describe(`control`, () => {
+
         let robot = new Mk2Robot();
 
-        // TODO
+        beforeEach(() => {
+            robot.orientation = 0;
+        })
+        
+        test(`rotation right`, () => {
+            robot.control({ x: 0, y: 0 }, 'R');
+            expect(robot.position.x).toBe(0);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(90);
+        })
+
+        test(`rotation right wrap`, () => {
+            robot.control({ x: 0, y: 0 }, 'RRRR');
+            expect(robot.position.x).toBe(0);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(0);
+        })
+
+        test(`rotation right overflow`, () => {
+            robot.control({ x: 0, y: 0 }, 'RRRRRR');
+            expect(robot.position.x).toBe(0);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(180);
+        })
+
+        test(`rotation left`, () => {
+            robot.control({ x: 0, y: 0 }, 'L');
+            expect(robot.position.x).toBe(0);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(270);
+        })
+
+        test(`rotation left wrap`, () => {
+            robot.control({ x: 0, y: 0 }, 'LLLLLLLL');
+            expect(robot.position.x).toBe(0);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(0);
+        })
+
+        test(`rotation left overflow`, () => {
+            robot.control({ x: 0, y: 0 }, 'LLLLL');
+            expect(robot.position.x).toBe(0);
+            expect(robot.position.y).toBe(0);
+            expect(robot.orientation).toBe(270);
+        })
     })
 });

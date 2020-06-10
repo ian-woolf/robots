@@ -4,6 +4,9 @@ Rotates and moves forwards rather than crabbing sideways and moving backwards
 Operates in the vertical plane
 */
 
+var angles = require('angles');
+angles.SCALE = 360;
+
 module.exports = class Mk2Robot {
 
     constructor() {
@@ -11,6 +14,8 @@ module.exports = class Mk2Robot {
             x: undefined,
             y: undefined
         }
+        // take 0 to be in the positive y direction (i.e. upwards on a building)
+        // then 90 is facing right, 180 is facing down and 270 is facing left
         this._orientation = 0;
     }
 
@@ -63,10 +68,10 @@ module.exports = class Mk2Robot {
                     // TODO
                     break;
                 case 'L':
-                    // TODO
+                    this.orientation = angles.normalize(this.orientation - 90);
                     break;
                 case 'R':
-                    // TODO
+                    this.orientation = angles.normalize(this.orientation + 90);
                     break;
                 default:
                     throw new Error(`invalid command encountered`);
