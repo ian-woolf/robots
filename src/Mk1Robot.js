@@ -25,6 +25,10 @@ module.exports = class Mk1Robot {
         return this._position;
     }
 
+    reportPosition() {
+        console.log(`Command sequence complete. Current position is (${this.position.x}, ${this.position.y}).`);
+    }
+
     control(position, cmdSeq) {
         this.position = position;
 

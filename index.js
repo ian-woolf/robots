@@ -4,8 +4,7 @@ function main() {
     let robot = new Mk1Robot();
 
     robot.control({ x: 1, y: 1 }, 'RRRRRRRRFFFFFFFFFFFLLLBBBBBRRRLLLLLFFLR');
-
-    console.log(robot.position);
+    robot.reportPosition();
 }
 
 main();
