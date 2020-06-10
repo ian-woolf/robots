@@ -54,6 +54,8 @@ module.exports = class Mk1Robot {
                 case 'R':
                     this.position = {x: this.position.x + 1, y: this.position.y};
                     break;
+                default:
+                    throw new Error(`invalid command encountered`);
             }
         })
 

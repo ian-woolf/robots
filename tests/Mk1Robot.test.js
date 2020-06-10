@@ -48,5 +48,7 @@ describe(`Mk1Robot`, () => {
         robot.control({ x: 1, y: 1 }, 'RRRRRRRRFFFFFFFFFFFLLLBBBBBRRRLLLLLFFLR');
         expect(robot.position.x).toBe(4);
         expect(robot.position.y).toBe(9);
+
+        expect(() => { robot.control({ x: 0, y: 0 }, 'X') }).toThrow();
     })
 });
