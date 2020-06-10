@@ -16,6 +16,9 @@ module.exports = class Mk1Robot {
             this._position.x = pos.x;
             this._position.y = pos.y;
         }
+        else {
+            throw new Error(`invalid position supplied`);
+        }
     }
 
     get position() {
@@ -23,7 +26,33 @@ module.exports = class Mk1Robot {
     }
 
     control(position, cmdSeq) {
-        // TODO
+        this.position = position;
+
+        // assumptions:
+        // - forward means increase y, right means increase x
+        // - if the robot is commanded to move left from x = 0, or down from y = 0, it doesn't move
+        // - test chamber is sufficiently large the robot won't reach the other two edges 
+        [...cmdSeq].forEach(el => {
+            switch(el) {
+                case 'F':
+                    this.position = {x: this.position.x, y: this.position.y + 1};
+                    break;
+                case 'B':
+                    if (this.position.y > 0) {
+                        this.position = {x: this.position.x, y: this.position.y - 1};
+                    }
+                    break;
+                case 'L':
+                    if (this.position.x > 0) {
+                        this.position = {x: this.position.x - 1, y: this.position.y};
+                    }
+                    break;
+                case 'R':
+                    this.position = {x: this.position.x + 1, y: this.position.y};
+                    break;
+            }
+        })
+
     }
 
 }
