@@ -2,13 +2,12 @@
 The Mk1Robot class represents the Mk1 Spider Robot
 */
 
-module.exports = class Mk1Robot {
+const Robot = require('./Robot.js');
+
+module.exports = class Mk1Robot extends Robot {
 
     constructor() {
-        this._position = {
-            x: undefined,
-            y: undefined
-        }
+        super();
     }
 
     set position(pos) {
@@ -23,10 +22,6 @@ module.exports = class Mk1Robot {
 
     get position() {
         return this._position;
-    }
-
-    reportPosition() {
-        console.log(`Command sequence complete. Current position is (${this.position.x}, ${this.position.y}).`);
     }
 
     control(position, cmdSeq) {

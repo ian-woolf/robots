@@ -17,6 +17,10 @@ module.exports = class Robot {
         this._orientation = 0;
     }
 
+    // parent class gets the simplest position setter
+    // i.e. accept any input
+    // child classes are free to override if they want additional restrictions
+    // (e.g. no negative positions)
     set position(pos) {
         this._position.x = pos.x;
         this._position.y = pos.y;

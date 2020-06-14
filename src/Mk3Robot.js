@@ -4,45 +4,15 @@ Has rockets!
 Rotates and moves forwards rather than crabbing sideways and moving backwards
 */
 
+const Robot = require('./Robot.js');
+
 var angles = require('angles');
 angles.SCALE = 360;
 
-module.exports = class Mk3Robot {
+module.exports = class Mk3Robot extends Robot {
 
     constructor() {
-        this._position = {
-            x: undefined,
-            y: undefined
-        }
-        // take 0 to be in the positive y direction (i.e. upwards on a building)
-        // then 90 is facing right, 180 is facing down and 270 is facing left
-        this._orientation = 0;
-    }
-
-    set position(pos) {
-        this._position.x = pos.x;
-        this._position.y = pos.y;
-    }
-
-    get position() {
-        return this._position;
-    }
-
-    set orientation(angle) {
-        if (angle >= 0 && angle <= 360) {
-            this._orientation = angle;
-        }
-        else {
-            throw new Error(`invalid orientation supplied`);
-        }
-    }
-
-    get orientation() {
-        return this._orientation;
-    }
-
-    reportPosition() {
-        console.log(`Command sequence complete. Current position is (${this.position.x}, ${this.position.y}). Orientation is ${this.orientation}.`);
+        super();
     }
 
     static simplifyCmdSeq(cmdSeq) {
