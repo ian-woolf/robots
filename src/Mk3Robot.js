@@ -11,8 +11,8 @@ angles.SCALE = 360;
 
 module.exports = class Mk3Robot extends Robot {
 
-    constructor() {
-        super();
+    constructor(position, orientation) {
+        super(position, orientation);
     }
 
     static simplifyCmdSeq(cmdSeq) {
@@ -35,9 +35,7 @@ module.exports = class Mk3Robot extends Robot {
         return simpleCmdSeq;
     }
 
-    control(position, cmdSeq) {
-        this.position = position;
-
+    control(cmdSeq) {
         // assumptions:
         // - forwards means move in the direction of current orientation
         // - left and right mean modify orientation

@@ -6,8 +6,8 @@ const Robot = require('./Robot.js');
 
 module.exports = class Mk1Robot extends Robot {
 
-    constructor() {
-        super();
+    constructor(position) {
+        super(position);
     }
 
     set position(pos) {
@@ -24,9 +24,7 @@ module.exports = class Mk1Robot extends Robot {
         return this._position;
     }
 
-    control(position, cmdSeq) {
-        this.position = position;
-
+    control(cmdSeq) {
         // assumptions:
         // - forward means increase y, right means increase x
         // - if the robot is commanded to move left from x = 0, or down from y = 0, it doesn't move

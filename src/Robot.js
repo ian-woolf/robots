@@ -3,18 +3,19 @@ Abstract parent class for all robot types
 */
 
 module.exports = class Robot {
-    constructor() {
+    constructor(position = {x: 0, y: 0}, orientation = 0) {
         if (new.target === Robot) {
             throw new Error("Cannot construct Robot instances directly");
         }
 
         this._position = {
-            x: undefined,
-            y: undefined
+            x: position.x,
+            y: position.y
         }
+
         // take 0 to be in the positive y direction (i.e. upwards on a building)
         // then 90 is facing right, 180 is facing down and 270 is facing left
-        this._orientation = 0;
+        this._orientation = orientation;
     }
 
     // parent class gets the simplest position setter

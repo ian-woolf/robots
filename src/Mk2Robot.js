@@ -11,8 +11,8 @@ angles.SCALE = 360;
 
 module.exports = class Mk2Robot extends Robot {
 
-    constructor() {
-        super();
+    constructor(position, orientation) {
+        super(position, orientation);
     }
 
     set position(pos) {
@@ -29,9 +29,7 @@ module.exports = class Mk2Robot extends Robot {
         return this._position;
     }
 
-    control(position, cmdSeq) {
-        this.position = position;
-
+    control(cmdSeq) {
         // assumptions:
         // - forwards means move in the direction of current orientation
         // - left and right mean modify orientation
